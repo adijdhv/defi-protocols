@@ -13,7 +13,7 @@ contract ERC4626test is ERC20 {
 
     function deposit(uint256 _amount) public {
         require(_amount > 0,"not enough amount");
-        huint256 sharesToReturn = convertAssetToShare(_amount);
+        uint256 sharesToReturn = convertAssetToShare(_amount);
         require(sharesToReturn > 0,"__");
         asset.transferFrom(msg.sender,address(this),_amount);
         _mint(msg.sender,sharesToReturn);
@@ -31,16 +31,13 @@ contract ERC4626test is ERC20 {
     }
 
     function convertAssetToShare(uint256 _amount) public view returns(uint256){
-            uint256 sharesToReturn = totalSupply()==0? _amount:
-           ( _amount * totalSupply())/totalAsset();
-           return sharesToReturn;
-        }
+            
+           return (_amount * (totalSupply() + 1e18))/(totalAsset() + 1e18);
+    }
 
     function convertSharesToAsset(uint256 _shares) public view returns (uint256){
-        if(totalSupply() == 0){
-            return 0;
-        }
-        return  (_shares * totalAsset())/totalSupply();
+        
+        return  (_shares * (totalAsset() + 1e18))/(totalSupply() + 1e18);
     }
 
     function totalAsset() public view  returns (uint256){
