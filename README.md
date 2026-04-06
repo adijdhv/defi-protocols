@@ -1,1 +1,6 @@
-# DeFi Protocols\n\nLearning DeFi by building from scratch.\n\n## Protocols\n- 01 ERC4626 Vault\n- 02 Lending (coming)\n- 03 AMM (coming)
+# DeFi Protocols
+Learning DeFi by building from scratch.
+## Protocols
+- 01 ERC4626 Vault
+- 02 Lending (coming)
+- 03 AMM (coming)
