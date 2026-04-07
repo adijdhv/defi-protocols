@@ -1,10 +1,10 @@
-// SPDX-license-Identifier: MIT
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import "@openzeppelin/contracts/token/erc20/ERC20.sol";
 
-contract ERC4626test is ERC20 {
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+contract ERC4626 is ERC20 {
     IERC20 private immutable asset;
     constructor(address assets) ERC20("VaultToken","VTX"){
         asset = IERC20(assets);
@@ -18,12 +18,12 @@ contract ERC4626test is ERC20 {
         asset.transferFrom(msg.sender,address(this),_amount);
         _mint(msg.sender,sharesToReturn);
 
-    };
+    }
 
     function withdraw( uint256 _shares) public{
-        require(balanceOf(msg.sender) >= _shares && _shares > 0,"not enough Shares");
+        require (_shares > 0,"not enough Shares");
         uint256 assetToReturn = convertSharesToAsset(_shares);
-        require(assetToReturn > 0 && assetToReturn < asset.balanceOf(address(this)) ,"not enough asset");
+        require(assetToReturn > 0 && assetToReturn <= asset.balanceOf(address(this)) ,"not enough asset");
         _burn(msg.sender,_shares);
         asset.transfer(msg.sender,assetToReturn);
         

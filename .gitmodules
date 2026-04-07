@@ -1,0 +1,3 @@
+[submodule "The-vault-ERC4626/lib/openzeppelin-contracts"]
+	path = The-vault-ERC4626/lib/openzeppelin-contracts
+	url = https://github.com/OpenZeppelin/openzeppelin-contracts
